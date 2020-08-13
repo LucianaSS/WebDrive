@@ -19,6 +19,8 @@ import suporte.Generator;
 import suporte.Screenshot;
 import suporte.Web;
 
+import java.net.MalformedURLException;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(DataDrivenTestRunner.class)
@@ -28,8 +30,8 @@ public class InformacoesUsuarioTest {
     @Rule
     public TestName test = new TestName();
     @Before
-    public void setUp(){
-        driver = Web.createChrome();
+    public void setUp() throws MalformedURLException, InterruptedException {
+        driver = Web.createBrowserStack();
 
 
         //Clicar no link que possui o texto "Sign in"
@@ -47,6 +49,7 @@ public class InformacoesUsuarioTest {
         driver.findElement(By.linkText("SIGN IN")).click();
 
         //Validar que dentro do elemento "class me" tem o texto "Hi,Julio"
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.className("me")));
         WebElement me = driver.findElement(By.className("me"));
         String textoNoElementoMe = me.getText();
         assertEquals("Hi, Julio", textoNoElementoMe);
@@ -60,8 +63,6 @@ public class InformacoesUsuarioTest {
 
     @Test
     public void testAdicionarUmainformacaoAdicionalDoUsuario(@Param(name="tipo")String tipo, @Param(name = "contato") String contato, @Param(name = "mensagem") String mensagemEsperada) {
-
-
         //Clicar no botão através do seu xpath //button[@data-target='addmoredata']
         driver.findElement(By.xpath("//button[@data-target='addmoredata']")).click();
 
@@ -79,6 +80,7 @@ public class InformacoesUsuarioTest {
         popupAddMoreData.findElement(By.linkText("SAVE")).click();
 
         //Na mensagem de id "toast-container" validar que o texto é "Your contact has been added!"
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.id("toast-container")));
         WebElement mensagemPop = driver.findElement(By.id("toast-container"));
         String mensagem = mensagemPop.getText() ;
         assertEquals(mensagemEsperada, mensagem);
@@ -94,6 +96,8 @@ public class InformacoesUsuarioTest {
          //confirmar a janela java script
          driver.switchTo().alert().accept();
          //validar que a mensagem apresentada foi "Rest in peace, dear phone!"
+
+         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.id("toast-container")));
          WebElement mensagemPop = driver.findElement(By.id("toast-container"));
          String mensagem = mensagemPop.getText() ;
          assertEquals("Rest in peace, dear phone!", mensagem);
@@ -108,6 +112,6 @@ public class InformacoesUsuarioTest {
      }
        @After
         public void tearDown(){
-       // driver.quit();
+        driver.quit();
    }
 }

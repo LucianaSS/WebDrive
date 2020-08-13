@@ -1,5 +1,5 @@
-testAdicionarUmainformacaoAdicionalDoUsuario, tipo, contato, mensagem
-                                            , Phone, +5551997188888,Your contact has been added!
-                                            , Phone, +5551998888888,Your contact has been added!
-                                            , Phone, +5551888888888,Your contact has been added!
-                                          //  , E-mail, obr.lusouza@gmail.com, Your contact has been added!
+testAdicionarUmainformacaoAdicionalDoUsuario,tipo,contato,mensagem,Duration(ms),Duration(ms)
+"",Phone,+5551997188888,Your contact has been added!,6757.0,6757.0
+"",Phone,+5551998888888,Your contact has been added!,6800.0,6800.0
+"",Phone,+5551888888888,Your contact has been added!,7414.0,7414.0
+//,E-mail,obr.lusouza@gmail.com,Your contact has been added!
